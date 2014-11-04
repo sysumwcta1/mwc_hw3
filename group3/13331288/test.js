@@ -116,23 +116,23 @@ function convert(value, dataType) {
 
 function filter(fil_id) {
     var str = document.getElementById(fil_id).value;
-    if (str == undefined || str == "")return;
+    if (str == undefined || str == "")return;          //  如果没有输入的话就不执行
         var table = document.getElementsByTagName("table");
     var i = 0;
     var inputs = document.getElementsByTagName('input');
     for (; i < inputs.length; i++) {
-        if (inputs[i].id == fil_id)break;
+        if (inputs[i].id == fil_id)break;          //  遍历所有输入框找出有输入的那个
     }
         var col = table[i/2].tBodies[0].rows;
         var frag = document.createDocumentFragment();
         for (var j = 0, n = col.length, count = 0; j < n; j++) {
             if (col[0].innerText.indexOf(str) != -1) {
-                col[0].className = "highlight";
+                col[0].className = "highlight";          //  改变类名获得高亮效果
                 if ((count++)%2)col[0].style.backgroundColor = '#ccc';
                 else col[0].style.backgroundColor = '#fff';
                 if (str != old_text) {
                     for (var k = 0; k < col[0].children.length; k++)
-                        col[0].children[k].innerHTML = col[0].children[k].innerText;
+                        col[0].children[k].innerHTML = col[0].children[k].innerText;          //  重置标签。取消之前的高亮
                 }
                 frag.appendChild(col[0]);
             }
@@ -160,8 +160,8 @@ function makeAllTablefiltable(tables) {          //  获取被点击的表格ID�
 
 function check() {return false;}
 
-function SearchHighlight(classname,keyword) {
-    var pucl = document.getElementsByClassName(classname);
+function SearchHighlight(classname,keyword) {          //  对被标记为highlight的类实行正则表达式替换
+    var pucl = document.getElementsByClassName(classname);          //  把要高亮的文本两端加上span标签
     if("" == keyword) return; 
     for (var j = 0; j < pucl.length; j++) {
         var temp=pucl[j].innerHTML; 
