@@ -29,6 +29,14 @@ th {
 	background-image: url("descend.png");
 }
 .highlight {
-	background-color: orange;
+	background-color: yellow;
 	font-weight: bold;
 } 
+.hide{
+	visibility: hidden;
+}
+input {
+	width: 12em;
+	height: 1.5em;
+	margin: 0 0 0.5em 0.1em;
+}
