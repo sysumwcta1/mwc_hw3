@@ -3,8 +3,8 @@ function Base (instanceVariable) {
 	// body...
 }
 Base.prototype.instanceMethod = function(instanceVariable) {
-	//instanceVariable = Base.instanceVariable;
-	alert("This is from Derived class instance-method, instance-variable is: " + instanceVariable);
+
+	alert("This is from Derived class instance-method, instance-variable is: " + this.instanceVariable);
 	// body...
 };
 Base.staticVariable = 'Base';
@@ -13,16 +13,25 @@ Base.staticMethod = function(staticVariable) {
 	alert("This is from Base class static-method, static-variable is: " + this.staticVariable);
 }
 instanceVariable = new Base();
-function extend(base,derived) {
-function f() {};
-f.prototype = base.prototype;
-var obj = new f();
-obj.constructor = derived;
-derived.prototype = obj;
+var obj = function (o) {
+    var F = function () {};
+    F.prototype = o;
+    return new F();
 }
-extend(Base,Derived);
+function extent(base, derived) {
+	var prototype = obj(base.prototype);
+	prototype.constructor = derived;
+	prototype.superClass = base.prototype;
+	prototype.instanceMethod = function() {
+		prototype.superClass.instanceMethod.call(this);
+		alert("This is from Derived class instance-method, instance-variable is: " + this.instanceVariable);
+	}
+	derived.prototype = prototype;
+}
+extent(Base,Derived);
 function Derived(instanceVariable) {
-	Base.call(this);
+	Base.call(this, instanceVariable);
+	this.instanceVariable = instanceVariable;
 }
 
 Derived.staticVariable = 'Derived';
@@ -30,11 +39,7 @@ Derived.staticMethod = function(staticVariable) {
 	Base.staticMethod(this.staticVariable);
 	alert("This is from Derived class static-method, static-variable is: " + this.staticVariable);
 }
-Derived.prototype.instanceMethod = function() {
-	Base.instanceMethod();
 
-	alert("This is from Derived class instance-method, instance-variable is: " + instanceVariable);
-}
 example = new Derived('example');
 Derived.staticMethod();
-example.instanceMethod;
+example.instanceMethod();
