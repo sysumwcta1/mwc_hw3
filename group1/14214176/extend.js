@@ -8,16 +8,15 @@ Base.prototype.instanceMethod = function() {
 Base.staticMethod = function() {
 	console.log('This is from Base class static-method, static-variable is:' + this.staticVariable);
 }
-
 function Derived(val) {
 	this.instanceVariable = val;
 }
 Derived.staticVariable = 'Derived';
 
-function extend() {
+function extend(Base, Derived) {
 	/*静态方法处理*/
 	Derived.staticMethod = function() {
-		Base.staticMethod.apply(Derived);
+		Base.staticMethod.apply(this);
 		console.log('This is from Derived class static-method, static-variable is:' + this.staticVariable);
 	}
 	/*实例方法处理*/
@@ -27,15 +26,9 @@ function extend() {
 		console.log('This is from Derived class instance-method, instance-variable is:' + this.instanceVariable);
 	}
 
-
-
 }
 
-
-var base = new Base();
-var derived = new Derived();
-
-extend(base, derived);
+extend(Base, Derived);
 
 example = new Derived('example');
 Derived.staticMethod();

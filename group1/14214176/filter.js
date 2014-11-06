@@ -3,8 +3,7 @@
 function drawTable(e) {
 	var table = e.target.nextSibling;
 	var tabel_data = getTableInitData(table);
-	//行匹配标记
-	var row_math_flag = false;
+	var row_math_flag = false;//行匹配标记
 	var tabel_html = '';
 	var cells_html = '';
 
