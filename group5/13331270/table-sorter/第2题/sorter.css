@@ -19,7 +19,7 @@ th {
 	background-position: right;
 }
 table tr:nth-child(even) {
-    background-color: #eee;
+    background-color: rgba(182, 177, 177, 0.5);;
 }
 table tr:nth-child(odd) {
     background-color: white;
