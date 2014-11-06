@@ -50,12 +50,6 @@ function getTableArr(table, type) {
 function getAllTables() {
 	return document.getElementsByTagName('table');
 }
-
-function makeAllTablesSortable(table_doms) {
-	for (var i = 0; i < table_doms.length; i++) {
-		addThEvent(table_doms[i]);
-	}
-}
 //查找tabel的原始数据
 function getTableInitData(table) {
 	var tables = getAllTables();
